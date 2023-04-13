@@ -1,0 +1,24 @@
+services:
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    volumes:
+      - ./config/:/mosquitto/config/
+      - ./log/:/mosquitto/log/
+      - ./data:/mosquitto/data/
+    ports:
+      - 9001:9001
+      - 1883:1883
+  node-red:
+    image: nodered/node-red:latest
+    ports:
+      - 1880:1880
+    volumes:
+      - node-red-data:/data/
+
+
+volumes:
+  node-red-data:
+    name: node-red-data
+networks:
+  default:
+    name: postgres_bridge
